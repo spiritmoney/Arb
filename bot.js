@@ -117,14 +117,14 @@ const checkPrice = async (exchange, token0, token1) => {
 const determineDirection = async (priceDifference) => {
     console.log(`Determining Direction...\n`)
 
-    if (priceDifference >= difference) {
+    if (priceDifference <= -(difference)) {
 
         console.log(`Potential Arbitrage Direction:\n`)
         console.log(`Buy\t -->\t Uniswap`)
         console.log(`Sell\t -->\t Sushiswap\n`)
         return [uRouter, sRouter]
 
-    } else if (priceDifference <= -(difference)) {
+    } else if (priceDifference >= difference) {
 
         console.log(`Potential Arbitrage Direction:\n`)
         console.log(`Buy\t -->\t Sushiswap`)
