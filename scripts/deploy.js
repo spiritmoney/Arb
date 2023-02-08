@@ -9,7 +9,7 @@ const config = require('../config.json')
 async function main() {
 
   const Arbitrage = await hre.ethers.getContractFactory("Arbitrage");
-  const arb = await Arbitrage.deploy(config.SUSHISWAP.V2_ROUTER_02_ADDRESS, config.UNISWAP.V2_ROUTER_02_ADDRESS);
+  const arb = await Arbitrage.deploy(config.PANCAKESWAP.V2_ROUTER_02_ADDRESS, config.UNISWAP.V2_ROUTER_02_ADDRESS);
 
   await arb.deployed();
 

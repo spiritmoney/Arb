@@ -5,7 +5,7 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 const Web3 = require('web3')
 let web3
 
-if (!config.PROJECT_SETTINGS.isLocal) {
+if (!config.PROJECT_SETTINGS.isDeployed) {
     const provider = new HDWalletProvider({
         privateKeys: [process.env.PRIVATE_KEY],
         providerOrUrl: `wss://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
@@ -21,8 +21,8 @@ const IUniswapV2Factory = require("../artifacts/@uniswap/v2-core/contracts/inter
 
 const uFactory = new web3.eth.Contract(IUniswapV2Factory.abi, config.UNISWAP.FACTORY_ADDRESS) // UNISWAP FACTORY CONTRACT
 const uRouter = new web3.eth.Contract(IUniswapV2Router02.abi, config.UNISWAP.V2_ROUTER_02_ADDRESS) // UNISWAP ROUTER CONTRACT
-const sFactory = new web3.eth.Contract(IUniswapV2Factory.abi, config.SUSHISWAP.FACTORY_ADDRESS) // SUSHISWAP FACTORY CONTRACT
-const sRouter = new web3.eth.Contract(IUniswapV2Router02.abi, config.SUSHISWAP.V2_ROUTER_02_ADDRESS) // SUSHISWAP ROUTER CONTRACT
+const sFactory = new web3.eth.Contract(IUniswapV2Factory.abi, config.PANCAKESWAP.FACTORY_ADDRESS) // SUSHISWAP FACTORY CONTRACT
+const sRouter = new web3.eth.Contract(IUniswapV2Router02.abi, config.PANCAKESWAP.V2_ROUTER_02_ADDRESS) // SUSHISWAP ROUTER CONTRACT
 
 const IArbitrage = require('../artifacts/contracts/Arbitrage.sol/Arbitrage.json')
 const arbitrage = new web3.eth.Contract(IArbitrage.abi, process.env.ARB_CONTRACT_ADDRESS);
