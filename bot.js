@@ -160,19 +160,22 @@ const determineProfitability = async (_routerPath, _token0Contract, _token0, _to
 
     try {
 
-        // This returns the amount of WETH needed
-        let result = await _routerPath[0].methods.getAmountsIn(reserves[0], [_token0.address, _token1.address]).call()
-
-        const token0In = result[0] // WETH
-        const token1In = result[1] // WBTC
-
-        result = await _routerPath[1].methods.getAmountsOut(token1In, [_token1.address, _token0.address]).call()
-
-        console.log(`Estimated amount of WETH needed to buy enough USDC on ${exchangeToBuy}\t\t| ${web3.utils.fromWei(token0In, 'ether')}`)
-        console.log(`Estimated amount of WETH returned after swapping USDC on ${exchangeToSell}\t| ${web3.utils.fromWei(result[1], 'ether')}\n`)
-
-        const { amountIn, amountOut } = await getEstimatedReturn(token0In, _routerPath, _token0, _token1)
-
+        // Get the estimated amount of WETH needed to buy 1 WBTC on exchangeToBuy
+      const wethNeededToBuy1WBTC = await _routerPath[0].methods.getAmountsIn(
+        web3.utils.toWei('1', 'ether'), // 1 WBTC
+        [_token1.address, _token0.address]
+      ).call()
+  
+      // Get the estimated amount of WETH returned after swapping 1 WBTC on exchangeToSell
+      const wethReturnedAfterSwapping1WBTC = await _routerPath[1].methods.getAmountsOut(
+        web3.utils.toWei('1', 'ether'), // 1 WBTC
+        [_token0.address, _token1.address]
+      ).call()
+  
+      console.log(`Estimated amount of WETH needed to buy 1 WBTC on ${exchangeToBuy}\t\t| ${web3.utils.fromWei(wethNeededToBuy1WBTC[0], 'ether')}`)
+      console.log(`Estimated amount of WETH returned after swapping 1 WBTC on ${exchangeToSell}\t| ${web3.utils.fromWei(wethReturnedAfterSwapping1WBTC[1], 'ether')}\n`)
+  
+      const { amountIn, amountOut } = await getEstimatedReturn(wethNeededToBuy1WBTC[0], _routerPath, _token0, _token1)
         // Fetch account
         const [account] = await web3.eth.getAccounts()
 
@@ -208,7 +211,7 @@ const determineProfitability = async (_routerPath, _token0Contract, _token0, _to
             return false
         }
 
-        amount = token0In
+        amount = wethNeededToBuy1WBTC
         return true
 
     } catch (error) {
@@ -224,7 +227,7 @@ const executeTrade = async (_routerPath, _token0Contract, _token1Contract) => {
 
     let startOnUniswap
 
-    if (_routerPath[0]._address == uRouter._address) {
+    if (_routerPath[0]._address == uRouter._address || _routerPath[0]._address == sRouter._address) {
         startOnUniswap = true
     } else {
         startOnUniswap = false
