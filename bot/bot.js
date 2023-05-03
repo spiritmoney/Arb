@@ -1,12 +1,12 @@
 // -- HANDLE INITIAL SETUP -- //
 
-require('./helpers/server')
+require('../helpers/server')
 require("dotenv").config();
 const Web3 = require("web3");
 
-const config = require('./config.json')
-const { getTokenAndContract, getPairContract, calculatePrice, getEstimatedReturn, getReserves } = require('./helpers/helpers')
-const { uFactory, uRouter, sFactory, sRouter, web3, arbitrage } = require('./helpers/initialization')
+const config = require('../config.json')
+const { getTokenAndContract, getPairContract, calculatePrice, getEstimatedReturn, getReserves } = require('../helpers/helpers')
+const { uFactory, uRouter, sFactory, sRouter, web3, arbitrage } = require('../helpers/initialization')
 
 // -- .ENV VALUES HERE -- //
 
