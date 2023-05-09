@@ -21,8 +21,8 @@ const IUniswapV2Factory = require("../artifacts/@uniswap/v2-core/contracts/inter
 
 const uFactory = new web3.eth.Contract(IUniswapV2Factory.abi, config.UNISWAP.FACTORY_ADDRESS) // UNISWAP FACTORY CONTRACT
 const uRouter = new web3.eth.Contract(IUniswapV2Router02.abi, config.UNISWAP.V2_ROUTER_02_ADDRESS) // UNISWAP ROUTER CONTRACT
-const sFactory = new web3.eth.Contract(IUniswapV2Factory.abi, config.PANCAKESWAP.FACTORY_ADDRESS) // SUSHISWAP FACTORY CONTRACT
-const sRouter = new web3.eth.Contract(IUniswapV2Router02.abi, config.PANCAKESWAP.V2_ROUTER_02_ADDRESS) // SUSHISWAP ROUTER CONTRACT
+const sFactory = new web3.eth.Contract(IUniswapV2Factory.abi, config.PANCAKESWAP.FACTORY_ADDRESS) // PANCAKESWAP FACTORY CONTRACT
+const sRouter = new web3.eth.Contract(IUniswapV2Router02.abi, config.PANCAKESWAP.V2_ROUTER_02_ADDRESS) // PANCAKESWAP ROUTER CONTRACT
 
 const IArbitrage = require('../artifacts/contracts/Arbitrage.sol/Arbitrage.json')
 const arbitrage = new web3.eth.Contract(IArbitrage.abi, process.env.ARB_CONTRACT_ADDRESS);
